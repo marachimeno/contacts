@@ -4,11 +4,12 @@ class ContactsController < ApplicationController
   end
 
   def show
-    @contacts = set_contact
+    @contact = set_contact
+    @history = @contact.versions
   end
 
   def new
-    @contacts = Contact.new
+    @contact = Contact.new
   end
 
   def create
