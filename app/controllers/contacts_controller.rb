@@ -18,7 +18,7 @@ class ContactsController < ApplicationController
     if @contact.save
       redirect_to contact_path(@contact)
     else
-      render "contacts/new"
+      render :new
     end
   end
 
@@ -28,12 +28,11 @@ class ContactsController < ApplicationController
 
   def update
     @contact = set_contact
-    @contact.update(contact_params)
 
-    if @contact.save
+    if @contact.update(contact_params)
       redirect_to contact_path(@contact)
     else
-      render "contacts/update/#{@contact.id}"
+      render :edit
     end
   end
 
