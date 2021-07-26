@@ -8,7 +8,7 @@ class App extends React.Component {
         return (
             <Switch>
                 <Route exact path="/" component={Contacts} />
-                <Route exact path="/contacts/:id" component={Contact} />
+                <Route exact path="/:slug" component={Contact} />
             </Switch>
         )
     }

@@ -3,15 +3,15 @@ import React from 'react';
 
 class Card extends React.Component {
     render() {
-        const name = `${this.props.person.firstName} ${this.props.person.lastName}`
-        const email = this.props.person.email
-        const phoneNumber = this.props.person.phoneNumber
-        const imageUrl = this.props.person.imageUrl
-        const alt = `${this.props.person.firstName}'s image`
+        const name = `${this.props.first_name} ${this.props.last_name}`
+        const email = this.props.email
+        const phoneNumber = this.props.phone_number
+        // const imageUrl = this.props.imageUrl
+        // const alt = `${this.props.firstName}'s image`
 
         return (
             <div className="card card-width col-sm-12 col-md-6 col-lg-3 m-1 my-3">
-                <img src={imageUrl} className="card-img-top user-img mx-auto py-3" alt={alt}/>
+                {/*<img src={imageUrl} className="card-img-top user-img mx-auto py-3" alt={alt}/>*/}
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
                 </div>

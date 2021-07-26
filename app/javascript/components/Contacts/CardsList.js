@@ -4,7 +4,7 @@ import Card from "./Card";
 class CardsList extends React.Component {
     renderCards = () => {
         return this.props.cards.map(card => {
-            return <Card person={card.person} key={card.person.email}/>
+            return <Card person={card.attributes} key={card.attributes.email}/>
         })
     }
 
