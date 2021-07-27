@@ -20,6 +20,14 @@ const Contact = (props) => {
             })
     }, [])
 
+    const deleteContact = () => {
+        const slug = props.match.params.slug
+        const url = `api/v1/contacts/${slug}`
+
+        axios.delete(url)
+            .then(() => console.log("caching"));
+    }
+
     const name = `${contact.first_name} ${contact.last_name}`
 
     return(
@@ -51,6 +59,9 @@ const Contact = (props) => {
                         <p>12/01/2020 -- Contact created</p>
                     </div>
                 </div>
+            </div>
+            <div className="row justify-content-center">
+                <button className="col-3 btn btn-danger text-center" onClick={deleteContact}>DELETE CONTACT</button>
             </div>
         </div>
     )

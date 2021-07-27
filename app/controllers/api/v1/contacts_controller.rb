@@ -6,7 +6,7 @@ module Api
       def index
         contacts = Contact.all
 
-        render json: ContactSerializer.new(contacts).serialized_json
+        render json: ContactSerializer.new(contacts, options).serialized_json
       end
 
       def show
@@ -53,11 +53,15 @@ module Api
       end
 
       def render_serialized_contact(contact)
-        render json: ContactSerializer.new(contact).serialized_json
+        render json: ContactSerializer.new(contact,options).serialized_json
       end
 
       def render_json_errors(contact)
         render json: { error: contact.errors.messages }, status: 422
+      end
+
+      def options
+        @options ||= { include: %i[versions] }
       end
     end
   end

@@ -3,9 +3,9 @@ import { Route, Switch } from 'react-router-dom'
 import Contacts from './Contacts/Contacts'
 import Contact from './Contact/Contact'
 import NewContact from './NewContact/NewContact'
-import UpdateContact from './UpdateContact/UpdateContact'
+import UpdateForm from './UpdateContact/UpdateForm'
 import Form from './Form/Form'
-import Test from "./UpdateContact/Test";
+import UpdateContact from "./UpdateContact/UpdateContact";
 
 class App extends React.Component {
     render() {
@@ -14,7 +14,7 @@ class App extends React.Component {
                 <Route exact path="/" component={Contacts} />
                 <Route exact path="/:slug" component={Contact} />
                 <Route exact path="/contacts/new" component={NewContact} />
-                <Route exact path="/:slug/edit" component={Form} />
+                <Route exact path="/:slug/edit" component={UpdateContact} />
             </Switch>
         )
     }

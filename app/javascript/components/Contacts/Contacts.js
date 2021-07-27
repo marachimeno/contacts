@@ -28,7 +28,6 @@ const Contacts = () => {
     return (
         <div className="container">
             <div className="search-bar my-3">
-                {/*<SearchBar search={this.search} />*/}
                 <Navbar />
             </div>
             <div className="cards-index row justify-content-around py-5">
