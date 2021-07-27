@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import Contacts from './Contacts/Contacts'
 import Contact from './Contact/Contact'
 import NewContact from './NewContact/NewContact'
+import UpdateContact from './UpdateContact/UpdateContact'
 import Form from './Form/Form'
 
 class App extends React.Component {
@@ -11,7 +12,8 @@ class App extends React.Component {
             <Switch>
                 <Route exact path="/" component={Contacts} />
                 <Route exact path="/:slug" component={Contact} />
-                <Route exact path="/contacts/new" component={Form} />
+                <Route exact path="/contacts/new" component={NewContact} />
+                <Route exact path="/:slug/edit" component={UpdateContact} />
             </Switch>
         )
     }

@@ -15,8 +15,7 @@ const Contact = (props) => {
             </ul>
             <div className="card-body">
                 <Link to={"/" + slug} className="card-link text-decoration-none">+ Info</Link>
-                <Link to={"/" + slug} className="card-link text-decoration-none">+ Info</Link>
-                <a href="#" className="card-link text-decoration-none">Edit</a>
+                <Link to={slug + "/edit"} className="card-link text-decoration-none">Edit</Link>
                 <a href="#" className="card-link text-decoration-none">Delete</a>
             </div>
         </div>

@@ -1,8 +1,7 @@
-// import {Redirect} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-class Form extends React.Component {
+export default class Form extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,69 +26,78 @@ class Form extends React.Component {
         });
     }
 
-    // handleSubmit(event) {
-    //     event.preventDefault();
-    //     const contact = this.state
-    //     const [newContact, setContact] = useState([])
-    //
-    //     axios.post('api/v1/contacts', contact)
-    //         .then(response => setContact(response.data.id));
-    // }
+    handleSubmit = event => {
+        event.preventDefault();
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+        const contact = {
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
+            email: this.state.email,
+            phone_number: this.state.phoneNumber,
+            slug: this.state.slug
+        };
 
-        const contact = this.state
-        const [newContact, setContact] = useState(0)
+        axios.post('/api/v1/contacts.json', { contact })
+            .then(response => {
+                response.data.data
+                this.setState({ slug: response.data.data.slug })
+            })
+            .catch( data => {
+                debugger
+            })
 
-        axios.post('/api/v1/contacts', contact)
-            .then((result) => {
-                setContact(result.data.data)
-            });
+        this.props.history.push(`/${this.state.slug}`)
     }
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    First Name:
-                    <input
-                        name="firstName"
-                        type="text"
-                        value={this.state.firstName}
-                        onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    Last Name:
-                    <input
-                        name="lastName"
-                        type="text"
-                        value={this.state.lastName}
-                        onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    Email:
-                    <input
-                        name="email"
-                        type="text"
-                        value={this.state.email}
-                        onChange={this.handleInputChange} />
-                </label>
-                <br />
-                <label>
-                    phone number:
-                    <input
-                        name="phoneNumber"
-                        type="text"
-                        value={this.state.phoneNumber}
-                        onChange={this.handleInputChange} />
-                </label>
-                <input type="submit" value="Submit" />
+            <form className="p-4" onSubmit={this.handleSubmit}>
+                <div className="form-row row p-3">
+                    <div className="col-6">
+                        <label>First name</label>
+                        <input type="text"
+                               className="form-control"
+                               name="firstName"
+                               value={this.state.firstName}
+                               onChange={this.handleInputChange}
+                               required/>
+                    </div>
+                    <div className="col-6">
+                        <label htmlFor="lastName">Last name</label>
+                        <input type="text"
+                               className="form-control"
+                               name="lastName"
+                               value={this.state.lastName}
+                               onChange={this.handleInputChange}
+                               required/>
+                    </div>
+                </div>
+                <div className="form-row p-3">
+                    <div className="col">
+                        <label htmlFor="email">Email</label>
+                        <input type="email"
+                               className="form-control"
+                               name="email"
+                               value={this.state.email}
+                               onChange={this.handleInputChange}
+                               required/>
+                    </div>
+                </div>
+                <div className="form-row p-3">
+                    <div className="col">
+                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <input type="text"
+                               className="form-control"
+                               name="phoneNumber"
+                               value={this.state.phoneNumber}
+                               onChange={this.handleInputChange}
+                               required/>
+                    </div>
+                </div>
+                <div className="p-3">
+                    <button className="btn btn-primary" type="submit">Submit!</button>
+                </div>
             </form>
         );
     }
 }
-
-export default Form;

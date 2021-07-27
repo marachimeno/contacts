@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-export default class NewContact extends React.Component {
+export default class UpdateContact extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +37,10 @@ export default class NewContact extends React.Component {
             slug: this.state.slug
         };
 
-        axios.post('/api/v1/contacts.json', { contact })
+        const slug = this.props.match.params.slug
+        const url = `api/v1/contacts/${slug}.json`
+
+        axios.patch(url, { contact })
             .then(response => {
                 response.data.data
                 this.setState({ slug: response.data.data.slug })
@@ -60,7 +63,7 @@ export default class NewContact extends React.Component {
                                name="firstName"
                                value={this.state.firstName}
                                onChange={this.handleInputChange}
-                               required/>
+                        />
                     </div>
                     <div className="col-6">
                         <label htmlFor="lastName">Last name</label>
@@ -69,7 +72,7 @@ export default class NewContact extends React.Component {
                                name="lastName"
                                value={this.state.lastName}
                                onChange={this.handleInputChange}
-                               required/>
+                        />
                     </div>
                 </div>
                 <div className="form-row p-3">
@@ -80,7 +83,7 @@ export default class NewContact extends React.Component {
                                name="email"
                                value={this.state.email}
                                onChange={this.handleInputChange}
-                               required/>
+                        />
                     </div>
                 </div>
                 <div className="form-row p-3">
@@ -91,7 +94,7 @@ export default class NewContact extends React.Component {
                                name="phoneNumber"
                                value={this.state.phoneNumber}
                                onChange={this.handleInputChange}
-                               required/>
+                        />
                     </div>
                 </div>
                 <div className="p-3">

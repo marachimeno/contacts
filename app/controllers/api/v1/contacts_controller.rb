@@ -17,7 +17,7 @@ module Api
 
       def create
         contact = Contact.new(contact_params)
-        if contact.save
+        if contact.save!
           render_serialized_contact(contact)
         else
           render_json_errors(contact)
@@ -26,7 +26,7 @@ module Api
 
       def update
         contact = set_contact
-        if contact.update(contact_params)
+        if contact.update!(contact_params)
           render_serialized_contact(contact)
         else
           render_json_errors(contact)
@@ -35,7 +35,7 @@ module Api
 
       def destroy
         contact = set_contact
-        if contact.destroy
+        if contact.destroy!
           head :no_content
         else
           render json: { errors: contact.errors.messages }, status: 422
@@ -45,7 +45,7 @@ module Api
       private
 
       def contact_params
-        params.require(:contact).permit(:first_name, :last_name, :email, :phone_number)
+        params.require(:contact).permit(:first_name, :last_name, :email, :phone_number, :slug)
       end
 
       def set_contact
