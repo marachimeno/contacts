@@ -1,29 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import axios from 'axios';
-// import { router } from 'react';
-// import { router } from 'react-router-dom'
-import { router } from "react-router";
 
 export default class UpdateContact extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         firstName: this.props.person.first_name,
-    //         lastName: this.props.person.last_name,
-    //         email: this.props.person.email,
-    //         phoneNumber: this.props.person.phone_number,
-    //         slug: this.props.person.slug
-    //     };
-    //     debugger
-    //     this.handleInputChange = this.handleInputChange.bind(this);
-    //     this.handleSubmit = this.handleSubmit.bind(this);
-    // }
-    state = {
-        firstName: this.props.person.first_name,
-        lastName: this.props.person.last_name,
-        email: this.props.person.email,
-        phoneNumber: this.props.person.phone_number,
-        slug: this.props.person.slug
+    constructor(props) {
+        super(props);
+        this.state = {
+            contact: {
+                first_name: '',
+                last_name: '',
+                email: '',
+                phone_number: ''
+            }
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidUpdate(prevProp) {
+        if (this.props.contact !== prevProp.contact) {
+            this.setState({ contact: this.props.contact });
+        }
     }
 
     handleInputChange(event) {
@@ -34,17 +31,19 @@ export default class UpdateContact extends React.Component {
         this.setState({
             [name]: value
         });
+        console.log(target.name)
+        console.log(this.state.first_name)
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        debugger
+
         const contact = {
-            first_name: this.state.firstName,
-            last_name: this.state.lastName,
-            email: this.state.email,
-            phone_number: this.state.phoneNumber,
-            slug: this.state.slug
+            first_name: this.state.contact.first_name,
+            last_name: this.state.contact.last_name,
+            email: this.state.contact.email,
+            phone_number: this.state.contact.phone_number,
+            slug: this.state.contact.slug
         };
 
         const slug = window.location.pathname.replace('/', '')
@@ -59,8 +58,6 @@ export default class UpdateContact extends React.Component {
             .catch( data => {
                 debugger
             })
-        // debugger
-        // this.props.history.push(`/${this.state.slug}`)
     }
 
     render() {
@@ -73,18 +70,18 @@ export default class UpdateContact extends React.Component {
                         <label>First name</label>
                         <input type="text"
                                className="form-control"
-                               name="firstName"
-                               value={this.state.firstName}
+                               name="first_name"
+                               defaultValue={this.state.contact.first_name}
                                onChange={this.handleInputChange}
                         />
                     </div>
                     <div className="col-6">
-                        <label htmlFor="lastName">Last name</label>
+                        <label htmlFor="last_name">Last name</label>
                         <input type="text"
                                className="form-control"
-                               name="lastName"
-                               value={this.state.lastName}
+                               name="last_name"
                                onChange={this.handleInputChange}
+                               defaultValue={this.state.contact.last_name}
                         />
                     </div>
                 </div>
@@ -94,18 +91,18 @@ export default class UpdateContact extends React.Component {
                         <input type="email"
                                className="form-control"
                                name="email"
-                               value={this.state.email}
+                               defaultValue={this.state.contact.email}
                                onChange={this.handleInputChange}
                         />
                     </div>
                 </div>
                 <div className="form-row p-3">
                     <div className="col">
-                        <label htmlFor="phoneNumber">Phone Number</label>
+                        <label htmlFor="phone_number">Phone Number</label>
                         <input type="text"
                                className="form-control"
-                               name="phoneNumber"
-                               value={this.state.phoneNumber}
+                               name="phone_number"
+                               defaultValue={this.state.contact.phone_number}
                                onChange={this.handleInputChange}
                         />
                     </div>
@@ -117,3 +114,26 @@ export default class UpdateContact extends React.Component {
         );
     }
 }
+// export default class UpdateContact extends React.Component {
+//     constructor(props){
+//         super(props);
+//         this.state = {
+//             data: ''
+//         }
+//     }
+//
+//     componentDidUpdate(prevProp) {
+//         if (this.props.contact !== prevProp.contact) {
+//             this.setState({ data: this.props.contact });
+//         }
+//     }
+//
+//     render(){
+//         // const {data} = this.state;
+//         return(
+//             <div>
+//                 {console.log(this.state.data)}
+//             </div>
+//         )
+//     }
+// }

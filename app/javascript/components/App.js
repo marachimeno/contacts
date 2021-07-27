@@ -14,7 +14,7 @@ class App extends React.Component {
                 <Route exact path="/" component={Contacts} />
                 <Route exact path="/:slug" component={Contact} />
                 <Route exact path="/contacts/new" component={NewContact} />
-                <Route exact path="/:slug/edit" component={Test} />
+                <Route exact path="/:slug/edit" component={Form} />
             </Switch>
         )
     }

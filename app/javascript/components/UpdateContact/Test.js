@@ -22,9 +22,13 @@ export default class Test extends React.Component {
     }
 
     render() {
+        const {data} = this.state.contact;
 
         return(
-            <div><UpdateContact person={this.state.contact}/></div>
+            <div>
+                <UpdateContact contact={this.state.contact}/>
+                {/*{console.log(typeof this.state.contact)}*/}
+            </div>
         )
     }
 }
