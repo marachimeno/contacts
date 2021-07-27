@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+// import { router } from 'react';
+// import { router } from 'react-router-dom'
+import { router } from "react-router";
 
 export default class UpdateContact extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            slug: ''
+            firstName: this.props.person.firstName,
+            lastName: this.props.person.lastName,
+            email: this.props.person.email,
+            phoneNumber: this.props.person.phoneNumber,
+            slug: this.props.person.slug
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -37,7 +40,8 @@ export default class UpdateContact extends React.Component {
             slug: this.state.slug
         };
 
-        const slug = this.props.match.params.slug
+        const slug = window.location.pathname.replace('/', '')
+                                             .replace('/edit', '')
         const url = `api/v1/contacts/${slug}.json`
 
         axios.patch(url, { contact })
@@ -48,8 +52,8 @@ export default class UpdateContact extends React.Component {
             .catch( data => {
                 debugger
             })
-
-        this.props.history.push(`/${this.state.slug}`)
+        debugger
+        // this.props.history.push(`/${this.state.slug}`)
     }
 
     render() {

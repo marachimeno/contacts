@@ -5,6 +5,7 @@ import Contact from './Contact/Contact'
 import NewContact from './NewContact/NewContact'
 import UpdateContact from './UpdateContact/UpdateContact'
 import Form from './Form/Form'
+import Test from "./UpdateContact/Test";
 
 class App extends React.Component {
     render() {
@@ -13,7 +14,7 @@ class App extends React.Component {
                 <Route exact path="/" component={Contacts} />
                 <Route exact path="/:slug" component={Contact} />
                 <Route exact path="/contacts/new" component={NewContact} />
-                <Route exact path="/:slug/edit" component={UpdateContact} />
+                <Route exact path="/:slug/edit" component={Test} />
             </Switch>
         )
     }
