@@ -5,18 +5,25 @@ import axios from 'axios';
 import { router } from "react-router";
 
 export default class UpdateContact extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            firstName: this.props.person.firstName,
-            lastName: this.props.person.lastName,
-            email: this.props.person.email,
-            phoneNumber: this.props.person.phoneNumber,
-            slug: this.props.person.slug
-        };
-
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         firstName: this.props.person.first_name,
+    //         lastName: this.props.person.last_name,
+    //         email: this.props.person.email,
+    //         phoneNumber: this.props.person.phone_number,
+    //         slug: this.props.person.slug
+    //     };
+    //     debugger
+    //     this.handleInputChange = this.handleInputChange.bind(this);
+    //     this.handleSubmit = this.handleSubmit.bind(this);
+    // }
+    state = {
+        firstName: this.props.person.first_name,
+        lastName: this.props.person.last_name,
+        email: this.props.person.email,
+        phoneNumber: this.props.person.phone_number,
+        slug: this.props.person.slug
     }
 
     handleInputChange(event) {
@@ -31,7 +38,7 @@ export default class UpdateContact extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-
+        debugger
         const contact = {
             first_name: this.state.firstName,
             last_name: this.state.lastName,
@@ -42,7 +49,7 @@ export default class UpdateContact extends React.Component {
 
         const slug = window.location.pathname.replace('/', '')
                                              .replace('/edit', '')
-        const url = `api/v1/contacts/${slug}.json`
+        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
 
         axios.patch(url, { contact })
             .then(response => {
@@ -52,11 +59,13 @@ export default class UpdateContact extends React.Component {
             .catch( data => {
                 debugger
             })
-        debugger
+        // debugger
         // this.props.history.push(`/${this.state.slug}`)
     }
 
     render() {
+        // this.props.history.location
+        // this.props.history.push(`/${this.state.slug}`)
         return (
             <form className="p-4" onSubmit={this.handleSubmit}>
                 <div className="form-row row p-3">
