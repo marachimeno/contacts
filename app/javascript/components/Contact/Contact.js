@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from 'react'
+import History from "./History";
 import { Link } from 'react-router-dom'
 
 import axios from 'axios'
 import Navbar from "../Navbar/Navbar";
+import Card from "../Contacts/Card";
 
 const Contact = (props) => {
     const [contact, setContact] = useState({})
+    const [history, setHistory] = useState({})
 
     useEffect( () =>{
         const slug = props.match.params.slug
         const url = `api/v1/contacts/${slug}`
 
+        const renderHistory = (history) => {
+            return history.map(log => {
+                return log.attributes
+            })
+        }
+
         axios.get(url)
             .then( (resp) => {
                 setContact(resp.data.data.attributes)
+                // setHistory(resp.data.included)
+                // const logs = renderHistory(resp.data.included)
+                setHistory(resp.data.included)
             })
             .catch( data => {
                 debugger
@@ -54,9 +66,11 @@ const Contact = (props) => {
                 <div className="col-4 p-3 mt-4">
                     <h3>Changes History 📑</h3>
                     <div className="py-3 px-1">
-                        <p>15/01/2020 -- Contact updated - changed first name</p>
-                        <p>15/01/2020 -- Contact updated - changed email</p>
-                        <p>12/01/2020 -- Contact created</p>
+                        {/*<p>15/01/2020 -- Contact updated - changed first name</p>*/}
+                        {/*<p>15/01/2020 -- Contact updated - changed email</p>*/}
+                        {/*<p>12/01/2020 -- Contact created</p>*/}
+                        {/*{console.log(history)}*/}
+                        <History history={history}/>
                     </div>
                 </div>
             </div>

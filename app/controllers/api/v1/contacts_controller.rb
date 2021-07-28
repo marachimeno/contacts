@@ -12,8 +12,7 @@ module Api
       def show
         contact = set_contact
 
-        # render_serialized_contact(contact)
-        render json: ContactSerializer.new(contact, options).serialized_json
+        render_serialized_contact(contact)
       end
 
       def create
