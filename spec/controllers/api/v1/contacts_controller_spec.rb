@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Api::V1::ContactsController do
+RSpec.describe Api::V1::ContactsController, type: :controller do
   let(:selected_contact) { Contact.create(first_name: 'test', last_name: 'test surname',
                                           email: 'test@email.com', phone_number: '1234567890',
                                           slug: 'testemailcom') }
@@ -27,7 +29,7 @@ RSpec.describe Api::V1::ContactsController do
   end
 
   describe "POST #create" do
-    context 'with a successful request'  do
+    context 'when given the required params'  do
       let(:params) do
         {
           contact: {
