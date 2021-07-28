@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 export default class UpdateForm extends React.Component {
     constructor(props) {

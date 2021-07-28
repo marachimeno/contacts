@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import axios from 'axios';
 
 export default class Form extends React.Component {

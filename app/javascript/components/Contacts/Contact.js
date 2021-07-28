@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 const Contact = (props) => {
     const {first_name, last_name, email, phone_number, slug} = props.attributes

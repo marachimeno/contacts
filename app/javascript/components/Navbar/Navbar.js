@@ -1,12 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-class Navbar extends React.Component {
-
-    handleUpdate = (event) => {
-        this.props.search(event.target.value)
-    }
-
+export default class Navbar extends React.Component {
     render() {
         return (
             <nav className="navbar navbar-light">
@@ -22,5 +17,3 @@ class Navbar extends React.Component {
         );
     }
 }
-
-export default Navbar;
