@@ -3,8 +3,6 @@ import { Route, Switch } from 'react-router-dom'
 import Contacts from './Contacts/Contacts'
 import Contact from './Contact/Contact'
 import NewContact from './NewContact/NewContact'
-import UpdateForm from './UpdateContact/UpdateForm'
-import Form from './Form/Form'
 import UpdateContact from "./UpdateContact/UpdateContact";
 
 class App extends React.Component {

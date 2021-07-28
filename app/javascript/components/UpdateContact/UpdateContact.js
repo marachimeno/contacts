@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import UpdateForm from './UpdateForm'
+import React from 'react';
 import axios from "axios";
+import UpdateForm from './UpdateForm'
 import Navbar from "../Navbar/Navbar";
 
 export default class UpdateContact extends React.Component {
