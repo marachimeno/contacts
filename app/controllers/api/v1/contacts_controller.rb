@@ -8,7 +8,7 @@ module Api
       def index
         contacts = Contact.all
 
-        render json: ContactSerializer.new(contacts, options).serialized_json
+        render_serialized_contact(contacts)
       end
 
       def show
@@ -19,6 +19,7 @@ module Api
 
       def create
         contact = Contact.new(contact_params)
+
         if contact.save!
           render_serialized_contact(contact)
         else
@@ -28,6 +29,7 @@ module Api
 
       def update
         contact = set_contact
+
         if contact.update!(contact_params)
           render_serialized_contact(contact)
         else
@@ -37,10 +39,11 @@ module Api
 
       def destroy
         contact = set_contact
+
         if contact.destroy!
           head :no_content
         else
-          render json: { errors: contact.errors.messages }, status: 422
+          render_json_errors(contact)
         end
       end
 
@@ -59,7 +62,7 @@ module Api
       end
 
       def render_json_errors(contact)
-        render json: { error: contact.errors.messages }, status: 422
+        render json: { errors: contact.errors.messages }, status: 422
       end
 
       def options
