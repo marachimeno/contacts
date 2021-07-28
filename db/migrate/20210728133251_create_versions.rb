@@ -15,6 +15,7 @@ class CreateVersions < ActiveRecord::Migration[6.0]
       t.string   :event,     null: false
       t.string   :whodunnit
       t.text     :object, limit: TEXT_BYTES
+      t.belongs_to :contact, foreign_key: true
 
       # Known issue in MySQL: fractional second precision
       # -------------------------------------------------
