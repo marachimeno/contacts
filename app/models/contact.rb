@@ -10,6 +10,7 @@ class Contact < ApplicationRecord
   validates :phone_number, presence: true, length: { minimum: 6 }
 
   before_create :create_slug_username
+  before_update :create_slug_username
 
   def create_slug_username
     self.slug = email.delete('@').delete('.')

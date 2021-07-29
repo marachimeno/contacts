@@ -62,7 +62,7 @@ module Api
       end
 
       def render_json_errors(contact)
-        render json: { errors: contact.errors.messages }, status: 422
+        render json: { errors: contact.errors.messages }, status: 400
       end
 
       def options

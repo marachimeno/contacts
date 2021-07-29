@@ -48,6 +48,8 @@ export default class UpdateContact extends React.Component {
 
         const response = PatchRequest(url, contact)
         this.setState({slug: response.slug})
+
+        this.props.history.push('/');
     }
 
     render() {

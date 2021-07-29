@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from "axios";
 import UpdateContact from './UpdateContact'
-import {GetRequest} from "../../utils/requests";
 
 export default class GetUpdateContact extends React.Component {
     state = {
-        contact: ''
+        contact: '',
+        history: this.props.history
     };
 
     componentDidMount() {
@@ -17,14 +17,15 @@ export default class GetUpdateContact extends React.Component {
                 const contact = resp.data.data.attributes
                 this.setState({ contact })
             })
-            .catch( data => {
+            .catch( error => {
                 debugger
+                console.log(error)
             })
     }
 
     render() {
         return(
-            <UpdateContact contact={this.state.contact}/>
+            <UpdateContact contact={this.state.contact} history={this.state.history}/>
         )
     }
 }

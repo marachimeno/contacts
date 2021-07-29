@@ -36,3 +36,12 @@ export const GetRequest = (url) => {
             console.log(error)
         })
 }
+
+export const DeleteRequest = (url) => {
+
+    return axios.delete(url)
+        .catch( error => {
+            debugger
+            console.log(error)
+        })
+}

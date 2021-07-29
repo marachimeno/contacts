@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import History from "./History";
 import Navbar from "../Navbar/Navbar";
+import {DeleteRequest} from "../../utils/requests";
 
 const Contact = (props) => {
     const [contact, setContact] = useState({})
@@ -17,7 +18,8 @@ const Contact = (props) => {
                 setHistory(resp.data.included)
                 return null
             })
-            .catch( data => {
+            .catch( error => {
+                console.log(error)
                 debugger
             })
     }, [])
@@ -26,8 +28,8 @@ const Contact = (props) => {
         const slug = props.match.params.slug
         const url = `api/v1/contacts/${slug}`
 
-        axios.delete(url)
-            .then(() => console.log("caching"));
+        DeleteRequest(url)
+        props.history.push('/')
     }
 
     const name = `${contact.first_name} ${contact.last_name}`
@@ -35,7 +37,6 @@ const Contact = (props) => {
     return(
         <div className="container">
             <div className="search-bar my-3">
-                {/*<SearchBar search={this.search} />*/}
                 <Navbar />
             </div>
             <div className="row p-4">
