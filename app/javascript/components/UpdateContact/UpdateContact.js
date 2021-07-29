@@ -1,32 +1,30 @@
 import React from 'react';
+import axios from "axios";
 import UpdateForm from './UpdateForm'
 import {GetRequest} from "../../utils/requests";
 
 export default class UpdateContact extends React.Component {
-    // state = {
-    //     contact: ''
-    // };
-    constructor(props) {
-        super(props);
+    state = {
+        contact: ''
+    };
 
+    componentDidMount() {
         const slug = this.props.match.params.slug
-        const url = "contacts/" + slug + ".json"
+        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
 
-        const response = GetRequest(url)
-        this.setState({ response })
+        axios.get(url)
+            .then( (resp) => {
+                const contact = resp.data.data.attributes
+                this.setState({ contact })
+            })
+            .catch( data => {
+                debugger
+            })
     }
-
-    // componentDidMount() {
-    //     const slug = this.props.match.params.slug
-    //     const url = "contacts/" + slug + ".json"
-    //
-    //     const response = GetRequest(url)
-    //     this.setState({ contact: response })
-    // }
 
     render() {
         return(
-            <UpdateForm contact={this.state}/>
+            <UpdateForm contact={this.state.contact}/>
         )
     }
 }

@@ -14,7 +14,18 @@ export default class Test extends React.Component {
             slug: ''
         };
 
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
 
     handleSubmit = event => {
@@ -41,7 +52,7 @@ export default class Test extends React.Component {
             <ContactForm attributes={this.state}
                          placeholder={this.state}
                          handleSubmit={this.handleSubmit}
-                         inputChange={handleInputChange.bind(this)}
+                         inputChange={this.handleInputChange}
             />
         );
     }

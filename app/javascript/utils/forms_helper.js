@@ -8,3 +8,9 @@ export const handleInputChange = (event) => {
         [name]: value
     });
 }
+
+export const cleanContactObject = (object) => {
+    Object.keys(object).forEach(key =>
+        object[key] === undefined ? delete object[key] : {}
+    );
+}

@@ -13,8 +13,7 @@ export const PostRequest = (params, contact) => {
         });
 }
 
-export const PatchRequest = (params, contact) => {
-    const url = `/api/v1/${params}`
+export const PatchRequest = (url, contact) => {
 
     return axios.patch(url, { contact })
         .then(response => {
@@ -26,8 +25,7 @@ export const PatchRequest = (params, contact) => {
         })
 }
 
-export const GetRequest = (params) => {
-    const url = `/api/v1/${params}`
+export const GetRequest = (url) => {
 
     return axios.get(url)
         .then(response => {

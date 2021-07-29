@@ -1,45 +1,52 @@
-import axios from 'axios';
 import React from 'react';
-import {PatchRequest} from "../../utils/requests";
-import {handleInputChange} from "../../utils/forms_helper";
 import {ContactForm} from "../Form/ContactForm";
+import {PatchRequest} from "../../utils/requests";
+import {cleanContactObject} from "../../utils/forms_helper";
 
-export default class TestUpdate extends React.Component {
+export default class UpdateForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            first_name: '',
-            last_name: '',
-            email: '',
-            phone_number: ''
+            contact: {
+                first_name: '',
+                last_name: '',
+                email: '',
+                phone_number: ''
+            }
         };
 
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    cleanContactObject(object) {
-        Object.keys(object).forEach(key =>
-            object[key] === "" ? delete object[key] : {}
-        );
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
 
     handleSubmit = event => {
         event.preventDefault();
 
-        let contact = {
+        const contact = {
             first_name: this.state.first_name,
             last_name: this.state.last_name,
             email: this.state.email,
             phone_number: this.state.phone_number,
             slug: this.state.slug
         };
-        this.cleanContactObject(contact)
+
+        cleanContactObject(contact)
 
         const slug = window.location.pathname.replace('/', '')
-            .replace('/edit', '')
-        const params = "contacts/" + slug + ".json"
+                                             .replace('/edit', '')
+        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
 
-        const response = PatchRequest(params, contact)
+        const response = PatchRequest(url, contact)
         this.setState({slug: response.slug})
     }
 
@@ -48,7 +55,7 @@ export default class TestUpdate extends React.Component {
             <ContactForm attributes={this.state}
                          placeholder={this.props.contact}
                          handleSubmit={this.handleSubmit}
-                         inputChange={handleInputChange.bind(this)}
+                         inputChange={this.handleInputChange}
             />
         );
     }
