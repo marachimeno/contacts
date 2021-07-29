@@ -1,7 +1,6 @@
 import React from 'react';
 import {ContactForm} from "../Form/ContactForm";
 import {PostRequest} from "../../utils/requests";
-import {handleInputChange} from "../../utils/forms_helper";
 
 export default class Test extends React.Component {
     constructor(props) {
