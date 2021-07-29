@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios'
 import Navbar from "../Navbar/Navbar";
 import Contact from './Contact'
+import {GetContacts} from '../../utils/requests'
 
 const Contacts = () => {
     const [contacts, setContacts] = useState([])
 
     useEffect(() => {
-        axios.get('/api/v1/contacts.json')
+        GetContacts()
             .then( resp => {
                 setContacts(resp.data.data)
             })
-            .catch( data => {
-                debugger
+            .catch(error => {
+                console.log(error)
             })
     }, [])
 

@@ -13,6 +13,10 @@ export const PostRequest = (params, contact) => {
         });
 }
 
+export const GetContacts = () => {
+    return axios.get('/api/v1/contacts.json')
+}
+
 export const PatchRequest = (url, contact) => {
 
     return axios.patch(url, { contact })

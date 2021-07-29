@@ -18,7 +18,7 @@ RSpec.shared_examples 'returns JSON with all contact keys' do
       last_name
       email
       phone_number
-slug
+      slug
     ]
   end
 
