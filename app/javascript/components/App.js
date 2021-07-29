@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import Contacts from './Contacts/Contacts'
 import Contact from './Contact/Contact'
 import NewContact from './NewContact/NewContact'
-import UpdateContact from "./UpdateContact/UpdateContact";
+import GetUpdateContact from "./UpdateContact/GetUpdateContact";
 
 
 class App extends React.Component {
@@ -13,7 +13,7 @@ class App extends React.Component {
                 <Route exact path="/" component={Contacts} />
                 <Route exact path="/:slug" component={Contact} />
                 <Route exact path="/contacts/new" component={NewContact} />
-                <Route exact path="/:slug/edit" component={UpdateContact} />
+                <Route exact path="/:slug/edit" component={GetUpdateContact} />
             </Switch>
         )
     }
