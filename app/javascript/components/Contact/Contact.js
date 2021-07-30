@@ -1,71 +1,63 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import History from "./History";
-import Navbar from "../Navbar/Navbar";
-import {DeleteRequest} from "../../utils/requests";
+import React from 'react'
+import {Main} from "./Main";
+import {DeleteRequest, GetRequest} from "../../utils/requests";
 
-const Contact = (props) => {
-    const [contact, setContact] = useState({})
-    const [history, setHistory] = useState({})
+export default class Test extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            contact: {},
+            history: {}
+        };
+    }
 
-    useEffect( () =>{
-        const slug = props.match.params.slug
-        const url = `api/v1/contacts/${slug}`
+    async getContact() {
+        const slug = this.props.match.params.slug
+        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
 
-        axios.get(url)
-            .then( (resp) => {
-                setContact(resp.data.data.attributes)
-                setHistory(resp.data.included)
-                return null
+        return GetRequest(url)
+    }
+
+    componentDidMount() {
+        this.getContact()
+            .then(resp => {
+                this.setState(
+                    { contact: resp.data.data.attributes }
+                );
+                this.setState(
+                    { history: resp.data.included }
+                );
             })
-            .catch( error => {
+            .catch(error =>
                 console.log(error)
-                debugger
-            })
-    }, [])
+            )
+    }
 
-    const deleteContact = () => {
-        const slug = props.match.params.slug
+    async deleteContact() {
+        const slug = this.props.match.params.slug
         const url = `api/v1/contacts/${slug}`
 
         DeleteRequest(url)
-        props.history.push('/')
+            .then(
+                this.props.history.push('/')
+            )
+            .catch( error =>
+                console.log(error)
+            )
+
     }
 
-    const name = `${contact.first_name} ${contact.last_name}`
+    render() {
+        const {contact} = this.state;
+        const {history} = this.state;
 
-    return(
-        <div className="container">
-            <div className="search-bar my-3">
-                <Navbar />
-            </div>
-            <div className="row p-4">
-                <div className="col-8 p-3">
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>❝Name❞</h4>
-                        <p>{name}</p>
-                    </div>
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>Email 📧</h4>
-                        <p>{contact.email}</p>
-                    </div>
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>Phone number 📱</h4>
-                        <p>{contact.phone_number}</p>
-                    </div>
-                </div>
-                <div className="col-4 p-3 mt-4">
-                    <h3>Changes History 📑</h3>
-                    <div className="py-3 px-1">
-                        <History history={history}/>
-                    </div>
-                </div>
-            </div>
-            <div className="row justify-content-center">
-                <button className="col-3 btn btn-danger text-center" onClick={deleteContact}>DELETE CONTACT</button>
-            </div>
-        </div>
-    )
+        if (contact === undefined || Object.keys(contact).length === 0) {
+            return null
+        } else {
+            const name = `${contact.first_name} ${contact.last_name}`
+            return (
+                <Main name={name} history={history} contact={contact} deleteContact={this.deleteContact}/>
+            );
+        }
+    }
 }
-
-export default Contact

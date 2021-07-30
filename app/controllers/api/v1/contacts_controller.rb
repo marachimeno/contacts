@@ -3,8 +3,6 @@
 module Api
   module V1
     class ContactsController < ApplicationController
-      include ContactsHelper
-
       before_action :set_contact, only: [:show, :update, :destroy]
       protect_from_forgery with: :null_session
 
@@ -39,6 +37,10 @@ module Api
 
       def contact_params
         params.require(:contact).permit(:first_name, :last_name, :email, :phone_number)
+      end
+
+      def render_serialized_contact(contact)
+        render json: ContactSerializer.new(contact, options).serialized_json
       end
 
       def set_contact

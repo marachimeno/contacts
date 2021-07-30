@@ -2,7 +2,7 @@ import React from 'react';
 import {ContactForm} from "../Form/ContactForm";
 import {PostRequest} from "../../utils/requests";
 
-export default class Test extends React.Component {
+export default class NewContact extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,6 +27,12 @@ export default class Test extends React.Component {
         });
     }
 
+    async postContact(contact) {
+        const params = 'contacts.json';
+
+        return PostRequest(params, contact)
+    }
+
     handleSubmit = event => {
         event.preventDefault();
 
@@ -37,11 +43,14 @@ export default class Test extends React.Component {
             phone_number: this.state.phone_number,
             slug: this.state.slug
         };
-        const params = 'contacts.json';
 
-        const response = PostRequest(params, contact);
-
-        this.setState({ slug: response.slug });
+        this.postContact(contact)
+            .then(resp => {
+                this.setState({ slug: resp.slug });
+            })
+            .catch(error =>
+                console.log(error)
+            )
 
         this.props.history.push(`/${this.state.slug}`);
     }
