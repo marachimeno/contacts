@@ -1,0 +1,10 @@
+Style/Documentation:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/controllers/api/v1/contacts_controller_spec.rb'
+    - 'spec/models/contact_spec.rb'
