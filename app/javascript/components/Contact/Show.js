@@ -1,14 +1,10 @@
 import React from "react";
-import {Navbar} from "../Navbar/Navbar";
 import {History} from "./History";
 import {Field} from "./ShowFields";
 
 export const Show = (props) => {
     return (
-        <div className="container">
-            <div className="search-bar my-3">
-                <Navbar />
-            </div>
+        <div>
             <div className="row p-4">
                 <div className="col-8 p-3">
                     <Field title='❝Name❞' name={props.name}/>

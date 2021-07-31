@@ -4,16 +4,22 @@ import Contacts from './Contacts/Contacts'
 import Contact from './Contact/Contact'
 import NewContact from './NewContact/NewContact'
 import GetUpdateContact from "./UpdateContact/GetUpdateContact";
+import {Navbar} from "./Navbar/Navbar";
 
 
 class App extends React.Component {
     render() {
         return (
             <Switch>
-                <Route exact path="/" component={Contacts} />
-                <Route exact path="/:slug" component={Contact} />
-                <Route exact path="/contacts/new" component={NewContact} />
-                <Route exact path="/:slug/edit" component={GetUpdateContact} />
+                <div className="container">
+                    <div className="search-bar my-3">
+                        <Navbar />
+                    </div>
+                    <Route exact path="/" component={Contacts} />
+                    <Route exact path="/:slug" component={Contact} />
+                    <Route exact path="/contacts/new" component={NewContact} />
+                    <Route exact path="/:slug/edit" component={GetUpdateContact} />
+                </div>
             </Switch>
         )
     }
