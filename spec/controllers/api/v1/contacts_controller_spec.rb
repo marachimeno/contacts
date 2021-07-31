@@ -3,12 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ContactsController, type: :controller do
-  let(:selected_contact) { Contact.create(first_name: 'test', last_name: 'test surname',
-                                          email: 'test@email.com', phone_number: '1234567890',
-                                          slug: 'testemailcom') }
+  let(:selected_contact) do
+    Contact.create(first_name: 'test', last_name: 'test surname',
+                   email: 'test@email.com', phone_number: '1234567890',
+                   slug: 'testemailcom')
+  end
 
-  describe "GET #index" do
-    context 'with a successful request'  do
+  describe 'GET #index' do
+    context 'with a successful request' do
       before { get :index }
 
       it_behaves_like 'returns status successful'
@@ -16,22 +18,21 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    context 'with a successful request'  do
+  describe 'GET #show' do
+    context 'with a successful request' do
       before { put :show, params: { slug: selected_contact.slug } }
 
       it_behaves_like 'returns status successful'
       it_behaves_like 'returns JSON with all main keys'
       it_behaves_like 'returns JSON with all contact keys'
       it_behaves_like 'returns JSON with all versions keys'
-
     end
   end
 
-  describe "POST #create" do
+  describe 'POST #create' do
     before { post :create, params: params }
 
-    context 'when given the required params'  do
+    context 'when given the required params' do
       let(:params) do
         {
           contact: {
@@ -45,19 +46,19 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
 
       let(:data_response_body) do
         {
-          "first_name"=>'test name',
-          "last_name"=>'test surname',
-          "email"=>'test@email.com',
-          "phone_number"=>'1234567890',
-          "slug"=>"testemailcom"
+          'first_name' => 'test name',
+          'last_name' => 'test surname',
+          'email' => 'test@email.com',
+          'phone_number' => '1234567890',
+          'slug' => 'testemailcom'
         }
       end
 
       let(:included_response_body) do
         {
-          "item_type"=>"Contact",
-          "event"=>"create",
-          "created_at"=>"2008-09-01T12:00:00.000Z"
+          'item_type' => 'Contact',
+          'event' => 'create',
+          'created_at' => '2008-09-01T12:00:00.000Z'
         }
       end
 
@@ -67,22 +68,22 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
       it_behaves_like 'returns JSON with all main keys'
       it_behaves_like 'returns JSON with all contact keys'
       it_behaves_like 'returns JSON with all versions keys'
-      it_behaves_like 'JSON body response contains expected contact data attributes', { "first_name"=>'test name',
-                                                                                        "last_name"=>'test surname',
-                                                                                        "email"=>'test@email.com',
-                                                                                        "phone_number"=>'1234567890',
-                                                                                        "slug"=>"testemailcom" }
-      it_behaves_like 'JSON body response contains expected contact included versions', { "item_type"=>"Contact",
-                                                                                          "event"=>"create",
-                                                                                          "created_at"=>"2008-09-01T12:00:00.000Z" }
+      it_behaves_like 'JSON body response contains expected contact data attributes', { 'first_name' => 'test name',
+                                                                                        'last_name' => 'test surname',
+                                                                                        'email' => 'test@email.com',
+                                                                                        'phone_number' => '1234567890',
+                                                                                        'slug' => 'testemailcom' }
+      it_behaves_like 'JSON body response contains expected contact included versions', { 'item_type' => 'Contact',
+                                                                                          'event' => 'create',
+                                                                                          'created_at' => '2008-09-01T12:00:00.000Z' }
     end
 
-    context 'when given invalid params'  do
+    context 'when given invalid params' do
       let(:params) do
         {
           contact: {
             first_name: 'test name',
-            email: 'test@email.com',
+            email: 'test@email.com'
           }
         }
       end
@@ -94,8 +95,8 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
-    context 'with a successful request'  do
+  describe 'PATCH #update' do
+    context 'with a successful request' do
       let(:contact_attributes) do
         {
           first_name: 'test name',
@@ -108,19 +109,19 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
 
       let(:data_response_body) do
         {
-          "first_name"=>'test name',
-          "last_name"=>'test surname',
-          "email"=>'test@email.com',
-          "phone_number"=>'0987654321',
-          "slug"=>"testemailcom"
+          'first_name' => 'test name',
+          'last_name' => 'test surname',
+          'email' => 'test@email.com',
+          'phone_number' => '0987654321',
+          'slug' => 'testemailcom'
         }
       end
 
       let(:included_response_body) do
         {
-          "item_type"=>"Contact",
-          "event"=>"create",
-          "created_at"=>"2008-09-01T12:00:00.000Z"
+          'item_type' => 'Contact',
+          'event' => 'create',
+          'created_at' => '2008-09-01T12:00:00.000Z'
         }
       end
 
@@ -133,17 +134,17 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
       it_behaves_like 'returns JSON with all main keys'
       it_behaves_like 'returns JSON with all contact keys'
       it_behaves_like 'returns JSON with all versions keys'
-      it_behaves_like 'JSON body response contains expected contact data attributes', { "first_name"=>'test name',
-                                                                                        "last_name"=>'test surname',
-                                                                                        "email"=>'test@email.com',
-                                                                                        "phone_number"=>'0987654321',
-                                                                                        "slug"=>"testemailcom" }
-      it_behaves_like 'JSON body response contains expected contact included versions', { "item_type"=>"Contact",
-                                                                                          "event"=>"create", #todo
-                                                                                          "created_at"=>"2008-09-01T12:00:00.000Z" }
+      it_behaves_like 'JSON body response contains expected contact data attributes', { 'first_name' => 'test name',
+                                                                                        'last_name' => 'test surname',
+                                                                                        'email' => 'test@email.com',
+                                                                                        'phone_number' => '0987654321',
+                                                                                        'slug' => 'testemailcom' }
+      it_behaves_like 'JSON body response contains expected contact included versions', { 'item_type' => 'Contact',
+                                                                                          'event' => 'create', # todo
+                                                                                          'created_at' => '2008-09-01T12:00:00.000Z' }
     end
 
-    context "when given an non-existing contact" do
+    context 'when given an non-existing contact' do
       before do
         put :update, params: { slug: contact[:slug], contact: contact_attributes }
       end
@@ -165,8 +166,8 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
     end
   end
 
-  describe "DELETE #delete" do
-    context 'with a successful request'  do
+  describe 'DELETE #delete' do
+    context 'with a successful request' do
       before do
         delete :destroy, params: { slug: selected_contact.slug }
       end

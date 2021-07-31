@@ -1,13 +1,9 @@
 import React from 'react';
-import {Navbar} from "../Navbar/Navbar";
 import {Input, Button} from "./Input";
 
 export const ContactForm = (props) => {
     return(
-        <div className="container">
-            <div className="search-bar my-3">
-                <Navbar />
-            </div>
+        <div>
             <div className="cards-index row justify-content-around py-5">
                 <form className="p-4" onSubmit={props.handleSubmit}>
                     <div className="form-row row p-3">
