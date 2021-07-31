@@ -36,7 +36,7 @@ module Api
       private
 
       def contact_params
-        params.require(:contact).permit(:first_name, :last_name, :email, :phone_number)
+        params.require(:contact).permit(:first_name, :last_name, :email, :phone_number, :slug)
       end
 
       def render_serialized_contact(contact)

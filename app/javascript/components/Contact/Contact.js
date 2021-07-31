@@ -1,5 +1,5 @@
 import React from 'react'
-import {Main} from "./Main";
+import {Show} from "./Show";
 import {DeleteRequest, GetRequest} from "../../utils/requests";
 
 export default class Test extends React.Component {
@@ -7,13 +7,19 @@ export default class Test extends React.Component {
         super(props);
         this.state = {
             contact: {},
-            history: {}
+            history: {},
+            searchHistory: this.props.history
         };
+        this.deleteContact = this.deleteContact.bind(this);
+    }
+
+    getUrl() {
+        const slug = this.props.match.params.slug
+        return "http://localhost:3000/api/v1/contacts/" + slug + ".json"
     }
 
     async getContact() {
-        const slug = this.props.match.params.slug
-        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
+        const url = this.getUrl()
 
         return GetRequest(url)
     }
@@ -33,13 +39,12 @@ export default class Test extends React.Component {
             )
     }
 
-    async deleteContact() {
-        const slug = this.props.match.params.slug
-        const url = `api/v1/contacts/${slug}`
+    deleteContact() {
+        const url = this.getUrl()
 
         DeleteRequest(url)
             .then(
-                this.props.history.push('/')
+                this.state.searchHistory.push('/')
             )
             .catch( error =>
                 console.log(error)
@@ -56,7 +61,9 @@ export default class Test extends React.Component {
         } else {
             const name = `${contact.first_name} ${contact.last_name}`
             return (
-                <Main name={name} history={history} contact={contact} deleteContact={this.deleteContact}/>
+                <div>
+                    <Show name={name} history={history} contact={contact} deleteContact={this.deleteContact}/>
+                </div>
             );
         }
     }

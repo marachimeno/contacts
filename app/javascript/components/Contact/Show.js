@@ -1,8 +1,9 @@
-import {Navbar} from "../Navbar/Navbar";
 import React from "react";
+import {Navbar} from "../Navbar/Navbar";
 import {History} from "./History";
+import {Field} from "./ShowFields";
 
-export const Main = (props) => {
+export const Show = (props) => {
     return (
         <div className="container">
             <div className="search-bar my-3">
@@ -10,18 +11,9 @@ export const Main = (props) => {
             </div>
             <div className="row p-4">
                 <div className="col-8 p-3">
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>❝Name❞</h4>
-                        <p>{props.name}</p>
-                    </div>
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>Email 📧</h4>
-                        <p>{props.contact.email}</p>
-                    </div>
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>Phone number 📱</h4>
-                        <p>{props.contact.phone_number}</p>
-                    </div>
+                    <Field title='❝Name❞' name={props.name}/>
+                    <Field title='Email 📧' name={props.contact.email}/>
+                    <Field title='Phone number 📱' name={props.contact.phone_number}/>
                 </div>
                 <div className="col-4 p-3 mt-4">
                     <h3>Changes History 📑</h3>

@@ -1,13 +1,14 @@
 import React from 'react';
 
-export const FormComponents = (props) => {
+export const Input = (props) => {
     return (
         <div className={props.col}>
             <label>{props.label}</label>
             <input type={props.type}
                    className="form-control"
-                   placeholder={props.placeholder.first_name}
-                   defaultValue={props.attributes.first_name}
+                   name={props.name}
+                   placeholder={props.placeholder}
+                   defaultValue={props.attribute}
                    onChange={props.inputChange}
             />
         </div>

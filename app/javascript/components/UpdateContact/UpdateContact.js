@@ -3,6 +3,7 @@ import {ContactForm} from "../Form/ContactForm";
 import {PatchRequest} from "../../utils/requests";
 import {cleanContactObject} from "../../utils/forms_helper";
 
+
 export default class UpdateContact extends React.Component {
     constructor(props) {
         super(props);
@@ -29,6 +30,14 @@ export default class UpdateContact extends React.Component {
         });
     }
 
+    async patchContact(contact) {
+        const slug = window.location.pathname.replace('/', '')
+                                             .replace('/edit', '')
+        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
+
+        return PatchRequest(url, contact)
+    }
+
     handleSubmit = event => {
         event.preventDefault();
 
@@ -42,23 +51,24 @@ export default class UpdateContact extends React.Component {
 
         cleanContactObject(contact)
 
-        const slug = window.location.pathname.replace('/', '')
-                                             .replace('/edit', '')
-        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
-
-        const response = PatchRequest(url, contact)
-        this.setState({slug: response.slug})
+        this.patchContact(contact)
+            .then(resp => {
+                this.setState({slug: resp.slug});
+            })
+            .catch(error =>
+                console.log(error)
+            )
 
         this.props.history.push('/');
     }
 
     render() {
         return (
-            <ContactForm attributes={this.state}
-                         placeholder={this.props.contact}
-                         handleSubmit={this.handleSubmit}
-                         inputChange={this.handleInputChange}
-            />
+                <ContactForm attributes={this.state.contact}
+                             placeholder={this.props.contact}
+                             handleSubmit={this.handleSubmit}
+                             inputChange={this.handleInputChange}
+                />
         );
     }
 }

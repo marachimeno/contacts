@@ -1,7 +1,7 @@
 import {Navbar} from "../Navbar/Navbar";
 import React from "react";
 
-export const Main = (props) => {
+export const Index = (props) => {
     return (
         <div className="container">
             <div className="search-bar my-3">

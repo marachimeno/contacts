@@ -1,13 +1,13 @@
 import React from "react";
 import {GetRequest} from '../../utils/requests'
-import Contact from "./Contact";
-import {Main} from "./Main";
+import {Contact} from "./Contact";
+import {Index} from "./Index";
 
 export default class Contacts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            contacts: []
+            contacts: [],
         };
     }
 
@@ -42,9 +42,13 @@ export default class Contacts extends React.Component {
         const {contacts} = this.state;
 
         if (contacts.length === 0) {
-            return null;
+            return (
+                <Index contactCards="You don't have any contacts yet" />
+            )
         } else {
-            return(<Main contactCards={this.contactsCards()} />)
+            return(
+                <Index contactCards={this.contactsCards()} />
+            )
         }
     }
 }

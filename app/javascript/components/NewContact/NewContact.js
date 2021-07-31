@@ -10,7 +10,7 @@ export default class NewContact extends React.Component {
             last_name: '',
             email: '',
             phone_number: '',
-            slug: ''
+            slug: '',
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -28,9 +28,9 @@ export default class NewContact extends React.Component {
     }
 
     async postContact(contact) {
-        const params = 'contacts.json';
+        const url = "http://localhost:3000/api/v1/contacts.json";
 
-        return PostRequest(params, contact)
+        return PostRequest(url, contact)
     }
 
     handleSubmit = event => {
@@ -56,12 +56,13 @@ export default class NewContact extends React.Component {
     }
 
     render() {
+
         return (
             <ContactForm attributes={this.state}
-                         placeholder={this.state}
+                         placeholder=''
                          handleSubmit={this.handleSubmit}
                          inputChange={this.handleInputChange}
             />
-        );
+        )
     }
 }
