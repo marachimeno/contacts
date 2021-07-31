@@ -51,10 +51,22 @@ RSpec.shared_examples 'returns JSON with all versions keys' do
   it { expect(json_response['included'].first['attributes'].keys).to match_array(keys) }
 end
 
-RSpec.shared_examples 'renders err message' do |err_message|
+RSpec.shared_examples 'returns JSON with all error keys' do
+  let(:json_response) { JSON.parse(response.body) }
+  let(:keys) do
+    %w[
+      error
+      message
+    ]
+  end
+
+  it { expect(json_response.keys).to match_array(keys) }
+end
+
+RSpec.shared_examples 'renders error message' do |error_message|
   let(:json_response) { JSON.parse(response.body) }
 
-  it { expect(json_response['message']).to eq err_message }
+  it { expect(json_response['error']).to eq error_message }
 end
 
 RSpec.shared_examples 'JSON body response contains expected contact data attributes' do |response_body|

@@ -29,6 +29,8 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
   end
 
   describe "POST #create" do
+    before { post :create, params: params }
+
     context 'when given the required params'  do
       let(:params) do
         {
@@ -59,10 +61,7 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
         }
       end
 
-      before do
-        post :create, params: params
-        Timecop.freeze(2008, 9, 1, 12, 0, 0)
-      end
+      before { Timecop.freeze(2008, 9, 1, 12, 0, 0) }
 
       it_behaves_like 'returns status successful'
       it_behaves_like 'returns JSON with all main keys'
@@ -76,6 +75,22 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
       it_behaves_like 'JSON body response contains expected contact included versions', { "item_type"=>"Contact",
                                                                                           "event"=>"create",
                                                                                           "created_at"=>"2008-09-01T12:00:00.000Z" }
+    end
+
+    context 'when given invalid params'  do
+      let(:params) do
+        {
+          contact: {
+            first_name: 'test name',
+            email: 'test@email.com',
+          }
+        }
+      end
+
+      let(:json_response) { JSON.parse(response.body) }
+
+      it_behaves_like 'returns JSON with all error keys'
+      it_behaves_like 'renders error message', 'Unprocessable entity'
     end
   end
 
@@ -126,7 +141,27 @@ RSpec.describe Api::V1::ContactsController, type: :controller do
       it_behaves_like 'JSON body response contains expected contact included versions', { "item_type"=>"Contact",
                                                                                           "event"=>"create", #todo
                                                                                           "created_at"=>"2008-09-01T12:00:00.000Z" }
+    end
 
+    context "when given an non-existing contact" do
+      before do
+        put :update, params: { slug: contact[:slug], contact: contact_attributes }
+      end
+
+      let(:contact) do
+        {
+          slug: 'testslug'
+        }
+      end
+
+      let(:contact_attributes) do
+        {
+          first_name: 'first name'
+        }
+      end
+
+      it_behaves_like 'returns JSON with all error keys'
+      it_behaves_like 'renders error message', 'Record not found'
     end
   end
 
