@@ -2,8 +2,8 @@
 
 class ApplicationController < ActionController::Base
   rescue_from StandardError, with: :render_unexpected_error
-  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_error
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_error
 
   def render_not_found_error(exception)
     error_message = {
