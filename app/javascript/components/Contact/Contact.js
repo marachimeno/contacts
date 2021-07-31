@@ -14,15 +14,14 @@ export default class Contact extends React.Component {
         this.deleteContact = this.deleteContact.bind(this);
     }
 
-    getUrl() {
-        const slug = this.props.match.params.slug
-        return "http://localhost:3000/api/v1/contacts/" + slug + ".json"
+    getParams() {
+        return this.props.match.params.slug
     }
 
     async getContact() {
-        const url = this.getUrl()
+        const params = `contacts/${this.getParams()}`
 
-        return GetRequest(url)
+        return GetRequest(params)
     }
 
     componentDidMount() {
@@ -41,9 +40,9 @@ export default class Contact extends React.Component {
     }
 
     deleteContact() {
-        const url = this.getUrl()
+        const params = `contacts/${this.getParams()}`
 
-        DeleteRequest(url)
+        DeleteRequest(params)
             .then(
                 this.state.searchHistory.push('/')
             )

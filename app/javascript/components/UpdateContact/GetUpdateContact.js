@@ -10,9 +10,9 @@ export default class GetUpdateContact extends React.Component {
 
     async getContact() {
         const slug = this.props.match.params.slug
-        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
+        const params = `contacts/${slug}`
 
-        return GetRequest(url)
+        return GetRequest(params)
     }
 
     componentDidMount() {

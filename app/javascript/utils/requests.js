@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const PostRequest = (url, contact) => {
+export const PostRequest = (params, contact) => {
+    const url = `/api/v1/${params}.json`
 
     return axios.post(url, { contact })
         .catch(error => {
@@ -9,7 +10,8 @@ export const PostRequest = (url, contact) => {
         });
 }
 
-export const PatchRequest = (url, contact) => {
+export const PatchRequest = (params, contact) => {
+    const url = `/api/v1/${params}.json`
 
     return axios.patch(url, { contact })
         .catch(error => {
@@ -18,7 +20,8 @@ export const PatchRequest = (url, contact) => {
         })
 }
 
-export const GetRequest = (url) => {
+export const GetRequest = (params) => {
+    const url = `/api/v1/${params}.json`
 
     return axios.get(url)
         .catch(error => {
@@ -27,7 +30,8 @@ export const GetRequest = (url) => {
         })
 }
 
-export const DeleteRequest = (url) => {
+export const DeleteRequest = (params) => {
+    const url = `/api/v1/${params}.json`
 
     return axios.delete(url)
         .catch(error => {

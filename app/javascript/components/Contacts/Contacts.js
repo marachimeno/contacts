@@ -12,7 +12,9 @@ export default class Contacts extends React.Component {
     }
 
     async getContacts() {
-        return GetRequest('/api/v1/contacts.json')
+        const params = 'contacts'
+
+        return GetRequest(params)
     }
 
     componentDidMount() {

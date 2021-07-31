@@ -33,9 +33,9 @@ export default class UpdateContact extends React.Component {
     async patchContact(contact) {
         const slug = window.location.pathname.replace('/', '')
                                              .replace('/edit', '')
-        const url = "http://localhost:3000/api/v1/contacts/" + slug + ".json"
+        const params = `contacts/${slug}`
 
-        return PatchRequest(url, contact)
+        return PatchRequest(params, contact)
     }
 
     handleSubmit = event => {

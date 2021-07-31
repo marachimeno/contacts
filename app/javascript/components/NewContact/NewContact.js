@@ -28,9 +28,9 @@ export default class NewContact extends React.Component {
     }
 
     async postContact(contact) {
-        const url = "http://localhost:3000/api/v1/contacts.json";
+        const params = 'contacts'
 
-        return PostRequest(url, contact)
+        return PostRequest(params, contact)
     }
 
     handleSubmit = event => {
