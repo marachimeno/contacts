@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Contact = (props) => {
+export const Contact = (props) => {
     const {first_name, last_name, email, phone_number, slug} = props.attributes
     const name = `${first_name} ${last_name}`
 
@@ -22,4 +22,3 @@ const Contact = (props) => {
     )
 }
 
-export default Contact

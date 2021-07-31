@@ -2,7 +2,7 @@ import React from 'react';
 import {ContactForm} from "../Form/ContactForm";
 import {PostRequest} from "../../utils/requests";
 
-export default class Test extends React.Component {
+export default class NewContact extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,7 +10,7 @@ export default class Test extends React.Component {
             last_name: '',
             email: '',
             phone_number: '',
-            slug: ''
+            slug: '',
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,6 +27,12 @@ export default class Test extends React.Component {
         });
     }
 
+    async postContact(contact) {
+        const url = "http://localhost:3000/api/v1/contacts.json";
+
+        return PostRequest(url, contact)
+    }
+
     handleSubmit = event => {
         event.preventDefault();
 
@@ -37,22 +43,26 @@ export default class Test extends React.Component {
             phone_number: this.state.phone_number,
             slug: this.state.slug
         };
-        const params = 'contacts.json';
 
-        const response = PostRequest(params, contact);
-
-        this.setState({ slug: response.slug });
+        this.postContact(contact)
+            .then(resp => {
+                this.setState({ slug: resp.slug });
+            })
+            .catch(error =>
+                console.log(error)
+            )
 
         this.props.history.push(`/${this.state.slug}`);
     }
 
     render() {
+
         return (
             <ContactForm attributes={this.state}
-                         placeholder={this.state}
+                         placeholder=''
                          handleSubmit={this.handleSubmit}
                          inputChange={this.handleInputChange}
             />
-        );
+        )
     }
 }

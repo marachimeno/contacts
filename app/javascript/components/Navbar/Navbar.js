@@ -1,19 +1,23 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Anchor} from "./NavbarComponents";
 
-export default class Navbar extends React.Component {
-    render() {
-        return (
-            <nav className="navbar navbar-light">
-                <a className="navbar-brand text-info font-weight-light title">
-                    <Link to={"/"} className="card-link text-decoration-none text-info">
-                        <h3 className="font-weight-light"> Agenda 📒</h3>
-                    </Link>
-                </a>
-                <form className="form-inline">
-                    <Link to={"/contacts/new"} className="btn btn-outline-light text-info my-2 my-sm-0">New contact</Link>
-                </form>
-            </nav>
-        );
-    }
+export const Navbar = () => {
+    return (
+        <nav className="navbar navbar-light">
+            <div className="navbar-brand text-info font-weight-light title">
+                <Anchor path='/'
+                      linkClass='card-link text-decoration-none text-info'
+                      titleClass='font-weight-light'
+                      title={<h3 className='font-weight-light'>Agenda 📒</h3>}
+                />
+            </div>
+            <form className="form-inline">
+                <Anchor path='/contacts/new'
+                        linkClass='btn btn-outline-light text-info my-2 my-sm-0'
+                        titleClass=''
+                        title='New contact'
+                />
+            </form>
+        </nav>
+    );
 }

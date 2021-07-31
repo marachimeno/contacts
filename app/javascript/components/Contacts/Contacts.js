@@ -1,40 +1,54 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios'
-import Navbar from "../Navbar/Navbar";
-import Contact from './Contact'
+import React from "react";
+import {GetRequest} from '../../utils/requests'
+import {Contact} from "./Contact";
+import {Index} from "./Index";
 
-const Contacts = () => {
-    const [contacts, setContacts] = useState([])
+export default class Contacts extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            contacts: [],
+        };
+    }
 
-    useEffect(() => {
-        axios.get('/api/v1/contacts.json')
-            .then( resp => {
-                setContacts(resp.data.data)
-            })
-            .catch( data => {
-                debugger
-            })
-    }, [])
+    async getContacts() {
+        return GetRequest('/api/v1/contacts.json')
+    }
 
-    const contactCards = contacts.map((contact, index) => {
-        return (
-            <Contact
-                key={index}
-                attributes={contact.attributes}
-            />
-        )
-    })
+    componentDidMount() {
+        this.getContacts()
+            .then(data =>
+                this.setState(
+                    { contacts: data.data.data }
+                )
+            )
+            .catch( error =>
+                console.log(error)
+            )
+    }
 
-    return (
-        <div className="container">
-            <div className="search-bar my-3">
-                <Navbar />
-            </div>
-            <div className="cards-index row justify-content-around py-5">
-                {contactCards}
-            </div>
-        </div>
-    )
+    contactsCards() {
+        return this.state.contacts.map((contact, index) => {
+            return (
+                <Contact
+                    key={index}
+                    attributes={contact.attributes}
+                />
+            )
+        })
+    }
+
+    render() {
+        const {contacts} = this.state;
+
+        if (contacts.length === 0) {
+            return (
+                <Index contactCards="You don't have any contacts yet" />
+            )
+        } else {
+            return(
+                <Index contactCards={this.contactsCards()} />
+            )
+        }
+    }
 }
-
-export default Contacts

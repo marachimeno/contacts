@@ -1,8 +1,8 @@
 import React from 'react';
-import Log from "./Log";
+import {Log} from "./Log";
 
-export default class History extends React.Component {
-    renderLogs = (logs) => {
+export const History = (props) => {
+    const renderLogs = (logs) => {
         if (logs[0] === undefined) return null
         const allLogs = []
 
@@ -13,10 +13,8 @@ export default class History extends React.Component {
         return allLogs
     }
 
-    render() {
-        const logs = this.props.history
-        return(
-            <div>{this.renderLogs(logs)}</div>
-        )
-    }
+    const logs = props.history
+    return(
+        <div>{renderLogs(logs)}</div>
+    )
 }

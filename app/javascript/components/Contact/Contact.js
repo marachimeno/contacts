@@ -1,71 +1,70 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import History from "./History";
-import Navbar from "../Navbar/Navbar";
-import {DeleteRequest} from "../../utils/requests";
+import React from 'react'
+import {Show} from "./Show";
+import {DeleteRequest, GetRequest} from "../../utils/requests";
 
-const Contact = (props) => {
-    const [contact, setContact] = useState({})
-    const [history, setHistory] = useState({})
-
-    useEffect( () =>{
-        const slug = props.match.params.slug
-        const url = `api/v1/contacts/${slug}`
-
-        axios.get(url)
-            .then( (resp) => {
-                setContact(resp.data.data.attributes)
-                setHistory(resp.data.included)
-                return null
-            })
-            .catch( error => {
-                console.log(error)
-                debugger
-            })
-    }, [])
-
-    const deleteContact = () => {
-        const slug = props.match.params.slug
-        const url = `api/v1/contacts/${slug}`
-
-        DeleteRequest(url)
-        props.history.push('/')
+export default class Test extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            contact: {},
+            history: {},
+            searchHistory: this.props.history
+        };
+        this.deleteContact = this.deleteContact.bind(this);
     }
 
-    const name = `${contact.first_name} ${contact.last_name}`
+    getUrl() {
+        const slug = this.props.match.params.slug
+        return "http://localhost:3000/api/v1/contacts/" + slug + ".json"
+    }
 
-    return(
-        <div className="container">
-            <div className="search-bar my-3">
-                <Navbar />
-            </div>
-            <div className="row p-4">
-                <div className="col-8 p-3">
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>❝Name❞</h4>
-                        <p>{name}</p>
-                    </div>
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>Email 📧</h4>
-                        <p>{contact.email}</p>
-                    </div>
-                    <div className="mb-5 mt-4 mx-4">
-                        <h4>Phone number 📱</h4>
-                        <p>{contact.phone_number}</p>
-                    </div>
+    async getContact() {
+        const url = this.getUrl()
+
+        return GetRequest(url)
+    }
+
+    componentDidMount() {
+        this.getContact()
+            .then(resp => {
+                this.setState(
+                    { contact: resp.data.data.attributes }
+                );
+                this.setState(
+                    { history: resp.data.included }
+                );
+            })
+            .catch(error =>
+                console.log(error)
+            )
+    }
+
+    deleteContact() {
+        const url = this.getUrl()
+
+        DeleteRequest(url)
+            .then(
+                this.state.searchHistory.push('/')
+            )
+            .catch( error =>
+                console.log(error)
+            )
+
+    }
+
+    render() {
+        const {contact} = this.state;
+        const {history} = this.state;
+
+        if (contact === undefined || Object.keys(contact).length === 0) {
+            return null
+        } else {
+            const name = `${contact.first_name} ${contact.last_name}`
+            return (
+                <div>
+                    <Show name={name} history={history} contact={contact} deleteContact={this.deleteContact}/>
                 </div>
-                <div className="col-4 p-3 mt-4">
-                    <h3>Changes History 📑</h3>
-                    <div className="py-3 px-1">
-                        <History history={history}/>
-                    </div>
-                </div>
-            </div>
-            <div className="row justify-content-center">
-                <button className="col-3 btn btn-danger text-center" onClick={deleteContact}>DELETE CONTACT</button>
-            </div>
-        </div>
-    )
+            );
+        }
+    }
 }
-
-export default Contact
