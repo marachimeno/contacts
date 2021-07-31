@@ -1,5 +1,4 @@
 import React from 'react';
-import {Navbar} from "../Navbar/Navbar";
 import {Input, Button} from "./Input";
 
 export const ContactForm = (props) => {

@@ -12,7 +12,7 @@ class App extends React.Component {
         return (
             <Switch>
                 <div className="container">
-                    <div className="search-bar my-3">
+                    <div className="my-3">
                         <Navbar />
                     </div>
                     <Route exact path="/" component={Contacts} />
