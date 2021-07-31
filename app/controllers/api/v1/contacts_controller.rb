@@ -4,7 +4,7 @@ module Api
   module V1
     class ContactsController < ApplicationController
       include ContactsHelper
-      before_action :set_contact, only: [:show, :update, :destroy]
+      before_action :set_contact, only: %i[show update destroy]
       protect_from_forgery with: :null_session
 
       def index

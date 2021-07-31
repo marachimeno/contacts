@@ -3,13 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
-  subject {
+  subject do
     described_class.new(first_name: 'test', last_name: 'test surname',
                         email: 'test@email.com', phone_number: '1234567890')
-  }
+  end
 
-  let(:contact) { described_class.create(first_name: 'test', last_name: 'test surname',
-                          email: 'test@email.com', phone_number: '1234567890') }
+  let(:contact) do
+    described_class.create(first_name: 'test', last_name: 'test surname',
+                           email: 'test@email.com', phone_number: '1234567890')
+  end
   let(:first_name) { contact.first_name }
   let(:last_name) { contact.last_name }
   let(:email) { contact.email }
@@ -26,17 +28,21 @@ RSpec.describe Contact, type: :model do
     end
 
     context 'with duplicate email' do
-      before { described_class.create!(first_name: 'test', last_name: 'test surname',
-                                       email: 'test@email.com', phone_number: '1234567890') }
+      before do
+        described_class.create!(first_name: 'test', last_name: 'test surname',
+                                email: 'test@email.com', phone_number: '1234567890')
+      end
 
       it { expect(subject).not_to be_valid }
     end
   end
 
   describe 'contact versions' do
-    let(:contact) { described_class.create(first_name: 'test', last_name: 'test surname',
-                                            email: 'test@email.com', phone_number: '1234567890',
-                                            slug: 'testemailcom') }
+    let(:contact) do
+      described_class.create(first_name: 'test', last_name: 'test surname',
+                             email: 'test@email.com', phone_number: '1234567890',
+                             slug: 'testemailcom')
+    end
     before do
       contact.update!(last_name: 'test last name')
     end
